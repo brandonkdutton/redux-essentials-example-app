@@ -1,9 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { PostAuthor } from "./PostAuthor";
-import { TimeAgo } from "./TimeAgo";
-import { ReactionButtons } from "./ReactionButtons";
+import { PostExcerpt } from "./PostExcerpt";
 import { selectAllPosts, fetchPosts } from "./postsSlice";
 
 export const PostsList = () => {
@@ -27,14 +24,7 @@ export const PostsList = () => {
     orderedPosts.sort((a, b) => b.date.localeCompare(a.date));
     content = orderedPosts.map((post) => (
       <article className="post" key={post.id}>
-        <h2>{post.title}</h2>
-        <PostAuthor userId={post.user} />
-        <TimeAgo timestamp={post.date} />
-        <p className="post-content">{post.content}</p>
-        <ReactionButtons post={post} />
-        <Link to={`/posts/${post.id}`} className="button">
-          View Post
-        </Link>
+        <PostExcerpt post={post} />
       </article>
     ));
   } else if (postStatus === "failed") {
