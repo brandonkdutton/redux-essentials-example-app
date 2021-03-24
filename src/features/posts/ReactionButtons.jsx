@@ -1,6 +1,6 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { reactionAdded } from "./postsSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { reactionAdded, selectPostById } from "./postsSlice";
 
 const reactionEmoji = {
   thumbsUp: "👍",
@@ -10,13 +10,14 @@ const reactionEmoji = {
   eyes: "👀",
 };
 
-export const ReactionButtons = ({ post }) => {
+export const ReactionButtons = ({ postId }) => {
   const dispatch = useDispatch();
+  const post = useSelector((state) => selectPostById(state, postId));
 
   const onReactionButtonClicked = (emojiName) => {
     dispatch(
       reactionAdded({
-        postId: post.id,
+        postId: postId,
         reaction: emojiName,
       })
     );
